@@ -5,7 +5,7 @@
 name: Build conda package
 on:
   push:
-
+  workflow_dispatch: 
   pull_request:
 
 concurrency:
