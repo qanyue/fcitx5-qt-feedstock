@@ -7,10 +7,15 @@ and does not require `BINSTAR_TOKEN`, `FEEDSTOCK_TOKEN`, or `STAGING_BINSTAR_TOK
 
 1. Push a commit, open a pull request, or run **Build conda package** manually from the Actions tab.
 2. Open the workflow run and download the `conda_pkgs` artifact for your Linux architecture
-   (`linux_64_`, `linux_aarch64_`, or `linux_ppc64le_`). For example:
+   (`linux_64_` or `linux_aarch64_`). For example:
    `fcitx5-qt-feedstock_conda_pkgs_<run-id>_linux_aarch64_.tar.zst`.
 3. Extract the `.tar.zst` archive to obtain the `.conda` package under its platform directory.
    Artifacts are retained for 30 days.
+
+The default Qt version is 6.11.3, matching the `qt6-main 6.11.3.*` dependency of
+conda-forge's latest PySide6 6.11.3 when checked on 2026-11-02. The plugin's runtime
+dependency is restricted to the same Qt patch version because it uses private Qt APIs.
+The ppc64le build is skipped because conda-forge does not provide this Qt version there.
 
 The generated artifact script archives package directories and channel metadata,
 excluding dependency caches and build environments. Failed builds can also upload

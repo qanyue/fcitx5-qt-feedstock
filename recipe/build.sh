@@ -1,11 +1,18 @@
 #!/usr/bin/env bash
 set -ex
 
+qt_cmake_args=()
+if [[ "${CONDA_BUILD_CROSS_COMPILATION:-0}" == "1" ]]; then
+    # Use native tools from the build environment with Qt libraries from PREFIX.
+    qt_cmake_args+=(-DQT_HOST_PATH="$BUILD_PREFIX")
+fi
+
 mkdir -p build
 cd build
 
 cmake .. -GNinja \
     ${CMAKE_ARGS} \
+    "${qt_cmake_args[@]}" \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_PREFIX_PATH="$PREFIX" \
     -DCMAKE_INSTALL_PREFIX="$PREFIX" \

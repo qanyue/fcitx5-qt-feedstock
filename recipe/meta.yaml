@@ -1,6 +1,6 @@
 {% set name = "fcitx5-qt6" %}
 {% set version = "5.1.16" %}
-{% set qt_version = environ.get("QT_VERSION", "6.7") %}
+{% set qt_version = environ.get("QT_VERSION", "6.11.3") %}
 
 package:
   name: {{ name }}
@@ -10,8 +10,9 @@ source:
   url: https://github.com/fcitx/fcitx5-qt/archive/refs/tags/{{ version }}.tar.gz
 
 build:
-  number: 0
-  skip: true  # [not linux]
+  number: 1
+  # conda-forge does not provide qt6-main 6.11.3 for ppc64le.
+  skip: true  # [not linux or ppc64le]
   string: qt{{ qt_version | replace('.', '') }}_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
 
 requirements:
@@ -22,6 +23,8 @@ requirements:
     - ninja
     - pkg-config
     - extra-cmake-modules
+    # Native Qt tools (moc/rcc) must run on the build machine when cross-compiling.
+    - qt6-main {{ qt_version }}.*  # [build_platform != target_platform]
   host:
     - qt6-main {{ qt_version }}.*
     - libgl-devel
@@ -30,7 +33,8 @@ requirements:
     - xorg-libx11
     - xorg-xorgproto
   run:
-    - {{ pin_compatible('qt6-main', max_pin='x.x') }}
+    # The platform input plugin uses Qt private APIs.
+    - {{ pin_compatible('qt6-main', max_pin='x.x.x') }}
     - libxkbcommon
     - libxcb
     - xorg-libx11
