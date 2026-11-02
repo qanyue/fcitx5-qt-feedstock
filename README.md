@@ -1,3 +1,24 @@
+Personal GitHub Actions builds
+=============================
+
+This fork builds `fcitx5-qt6` for personal use and saves `.conda` packages as
+GitHub Actions artifacts. It does not publish packages to conda-forge or Anaconda.org,
+and does not require `BINSTAR_TOKEN`, `FEEDSTOCK_TOKEN`, or `STAGING_BINSTAR_TOKEN`.
+
+1. Push a commit, open a pull request, or run **Build conda package** manually from the Actions tab.
+2. Open the workflow run and download the artifact for your Linux architecture:
+   `fcitx5-qt6-linux_64_`, `fcitx5-qt6-linux_aarch64_`, or `fcitx5-qt6-linux_ppc64le_`.
+3. Extract the artifact ZIP to obtain the `.conda` package. Artifacts are retained for 30 days.
+
+The upload includes only built packages under `build_artifacts/linux-*/*.conda`,
+excluding dependency caches. A successful job must produce at least one package.
+
+The workflow and `.scripts/` were customized from conda-smithy-generated files.
+After rerendering, preserve the artifact upload, disabled package publishing,
+removed output authorization check, and omitted publishing tokens.
+The upstream conda-forge installation and release information below does not describe
+this fork's artifacts.
+
 About fcitx5-qt6-feedstock
 ==========================
 
