@@ -1,0 +1,3 @@
+github_actions_labels:
+  - ubuntu-latest  # [linux64]
+  - ubuntu-24.04-arm  # [linux and aarch64]

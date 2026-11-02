@@ -17,6 +17,9 @@ conda-forge's latest PySide6 6.11.3 when checked on 2026-11-02. The plugin's run
 dependency is restricted to the same Qt patch version because it uses private Qt APIs.
 The ppc64le build is skipped because conda-forge does not provide this Qt version there.
 
+Both Linux builds use native runners and matching container architectures. ARM64 uses
+`ubuntu-24.04-arm` with the conda-forge aarch64 image; x86_64 uses `ubuntu-latest`.
+
 The generated artifact script archives package directories and channel metadata,
 excluding dependency caches and build environments. Failed builds can also upload
 separate work directory and environment archives for debugging.
